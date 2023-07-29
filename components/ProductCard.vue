@@ -5,6 +5,7 @@ defineProps<{
 </script>
 
 <template>
+  
   <NuxtLink
     class="block product-card"
     :to="{ name: 'products-id', params: { id: product.sys.id } }"

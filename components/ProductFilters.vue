@@ -1,8 +1,22 @@
 <script setup>
 const productStore = useProductStore();
 const filters = computed(() => productStore.filters);
+
+
+
+watch(filters, async () => {
+  useRouter().push({query: filters.value})
+    await productStore.fetchProducts()
+   
+  }, {
+    deep: true
+  })
+
+// "fields.heatLevel": productStore.filters["fields.heatLevel"],
+//     "fields.name[all]": productStore.filters.query,
 </script>
 <template>
+  {{ filters["fields.heatLevel"] }}
   <div class="filters-wrapper flex gap-2 items-center">
     <div class="form-control">
       <label class="label" for="search">
