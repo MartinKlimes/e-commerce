@@ -14,7 +14,8 @@ useAsyncData("products", async () => productStore.fetchProducts());
       v-if="productStore.products"
       class="gap-7 p-10 sm:grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 flex-wrap justify-items-stretch items-stretch"
     >
-    <transition-group name="list" >
+    <TransitionGroup name="products">
+   
 
       <ProductCard
         v-for="product in productStore.products"
@@ -22,30 +23,29 @@ useAsyncData("products", async () => productStore.fetchProducts());
         :key="product.sys.id"
         class="mb-5"
       />
+    </TransitionGroup>
 
-
-    </transition-group>
 
     </div>
   </div>
 </template>
 <style scoped>
-.list-move, /* apply transition to moving elements */
-.list-enter-active,
-.list-leave-active {
-  transition: all 0.5s ease;
+.product-card {
+	transition: all .5s ease-in-out;
+}
+.products-enter-from {
+	transform: scale(0.5) translatey(-80px);
+	opacity:0;
 }
 
-.list-enter-from,
-.list-leave-to {
-  opacity: 0;
-  transform: translateX(30px);
+.products-leave-to{
+	transform: translatey(30px);
+	opacity:0;
 }
 
-/* ensure leaving items are taken out of layout flow so that moving
-   animations can be calculated correctly. */
-.list-leave-active {
-  position: absolute;
+.products-leave-active {
+	position: absolute;
+	z-index:-1;
 }
 
 </style>

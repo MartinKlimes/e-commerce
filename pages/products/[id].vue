@@ -1,5 +1,8 @@
 <script setup>
 import * as marked from "marked";
+import { useCartStore } from "~~/stores/CartStore";
+
+const cartStore = useCartStore()
 const route = useRoute();
 const productStore = useProductStore();
 
@@ -20,7 +23,9 @@ const description = computed(() =>
 );
 
 function handleAddToCart(product) {
+  cartStore.addItem(product)
   useAlertsStore().success(product.fields.name + " added to cart");
+
 }
 </script>
 <template>

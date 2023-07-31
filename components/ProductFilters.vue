@@ -1,23 +1,31 @@
 <script setup>
+import { refDebounced, debouncedWatch } from '@vueuse/core'
+
 const productStore = useProductStore();
 const filters = computed(() => productStore.filters);
 
+const showSpinner = ref(false)
+const debounced = refDebounced(showSpinner, 500)
 
 
-watch(filters, async () => {
+debouncedWatch(filters, async () => {
+  showSpinner.value = true
   useRouter().push({query: filters.value})
-    await productStore.fetchProducts()
+  await productStore.fetchProducts()
+  showSpinner.value = false
+  
    
-  }, {
-    deep: true
-  })
+  }, 
+    {deep: true, debounced: 200}
+  )
 
 // "fields.heatLevel": productStore.filters["fields.heatLevel"],
 //     "fields.name[all]": productStore.filters.query,
 </script>
 <template>
-  {{ filters["fields.heatLevel"] }}
-  <div class="filters-wrapper flex gap-2 items-center">
+
+  <div class="filters-wrapper flex gap-2 items-center ">
+    <AppSpinner style="transform: translateY(15px)" v-if="debounced"/>
     <div class="form-control">
       <label class="label" for="search">
         <span class="label-text">Search</span>
