@@ -10,7 +10,7 @@ const timeAgo = useTimeAgo(props.review.attributes.createdAt)
 
 
 <template>
-<div class="border-1 shadow rounded-md mb-2">
+<div class="border-1 shadow rounded-md mb-2 p-3">
     <h3 class="font-bold">{{ review.attributes.title }}</h3>
     <div class="">{{'⭐'. repeat(review.attributes.rating)}}</div>
     <h4 class="">{{ review.attributes.author }}</h4>
