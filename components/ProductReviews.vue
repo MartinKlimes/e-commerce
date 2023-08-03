@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { useAsyncState } from '@vueuse/core'
+import groupBy from "lodash/groupBy";
 
-// zadefinuj props
+
 const props = defineProps<{
   productId: {
     type: String,
@@ -12,6 +13,7 @@ const props = defineProps<{
 const showReviews = ref(true)
 const showReviewForm = ref(false)
 
+
 const deskree = useDeskree()
 const {state, isLoading, execute} = useAsyncState(() =>
   deskree.reviews.get(props.productId),
@@ -19,11 +21,17 @@ const {state, isLoading, execute} = useAsyncState(() =>
   {immediate: false}
 )
 
+const reviews = computed(() => state.value.data.map(i => i.attributes))
+
 const starList = computed(() => {
   if (state.value) {
     return state.value.data.map(i => i.attributes.rating)
   } 
 })
+
+// const groupedReviews = computed(() => {
+//   return groupBy(state.data.value, "rating");
+// });
 
 const avarageRating = computed(() => {
   if (state.value) {
@@ -59,20 +67,21 @@ function submitReview(review: any) {
   execute()
 }
 
+const data = computed(() =>  state.value.data.map(review => review.attributes))
 
 </script>
 
 <template>
-  <!-- <pre> {{ state }}</pre> -->
-
+  
   <div class="mb-40">
     <hr class="my-10" />
     <h3 class="font-bold">Customer Reviews and Ratings</h3>
-
+    
     <p v-if="isLoading || !state" class="text-2xl italic">Loading...</p>
     <template v-else>
+      <pre> {{ reviews }}</pre>
       <div class="flex gap-4 my-5 ">
-        <ProductReviewsRating :avarage-rating="avarageRating" :num-of-reviews="state.data.length"/>
+        <!-- <ProductReviewsRating :avarage-rating="avarageRating" :num-of-reviews="state.data.length"/> -->
         <ProductRating :starList="starList"/>
       </div>
       <div class="flex gap-2 mb-5">
