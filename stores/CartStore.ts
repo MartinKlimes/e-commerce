@@ -21,7 +21,12 @@ export const useCartStore = defineStore("CartStore", () => {
     }
     const getTotalPrice = computed(() => cart.value.reduce((acc, product) => acc + product.fields.price * product.count,0))
     const getTotalCount = computed(() => cart.value.reduce((acc, product) => acc + product.count,0))
-
+    const getCartList = computed(() => cart.value.map(product => {
+        return {
+            id: product.sys.id,
+            count: product.count
+        }
+    }))
     watchDebounced(cart, () => {
         if (isFirsrLoad.value) return;
             deskree.user.updateCart(cart.value)
@@ -50,7 +55,8 @@ export const useCartStore = defineStore("CartStore", () => {
         addItem,
         removeProducts,
         getTotalPrice,
-        getTotalCount
+        getTotalCount,
+        getCartList
     }
 })
 

@@ -6,7 +6,12 @@ const selected = ref([]);
 const checkAll = ref();
 
 async function handleCheckout() {
-  console.log("checking out");
+const res =  await $fetch("/api/cart", {
+  method: "POST",
+  body: cartStore.getCartList,
+})
+window.location = res.url;
+
 }
 </script>
 <template>

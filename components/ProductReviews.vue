@@ -69,6 +69,10 @@ async function submitReview(review: any) {
     <hr class="my-10" />
     <h3 class="font-bold">Customer Reviews and Ratings</h3>
     <p v-if="isLoading || !state" class="text-2xl italic">Loading...</p>
+    <div v-else-if="!reviews.length" class="flex flex-col ">
+      <span class="text-gray-500">No Reviews Yet</span>
+      <button @click="showReviewForm =! showReviewForm" class="btn w-max mt-4">Be the first to write one!</button>
+    </div>
     <template v-else>
       <pre></pre>
 
@@ -92,8 +96,15 @@ async function submitReview(review: any) {
           {{ showReviews ? "Hide" : "Show" }} All Reviews
         </button>
       </div>
-     
-   
+      <TransitionGroup name="reviews">
+        <ProductReviewCard
+        v-if="showReviews && reviews.length"
+        v-for="review in reviews"
+        :review="review"
+        :key="review.uid"
+        />
+      </TransitionGroup>
+    </template>
     <div v-if="showReviewForm">
       <h4 class="font-bold">Create Review</h4>
       <ProductReviewForm
@@ -102,15 +113,6 @@ async function submitReview(review: any) {
         @submitReview="submitReview"
       />
     </div>
-    <TransitionGroup name="reviews">
-        <ProductReviewCard
-          v-if="showReviews"
-          v-for="review in reviews"
-          :review="review"
-          :key="review.uid"
-        />
-      </TransitionGroup>
-    </template>
   </div>
 </template>
 
