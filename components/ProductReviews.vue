@@ -1,107 +1,118 @@
 <script setup lang="ts">
-import { useAsyncState } from '@vueuse/core'
-import groupBy from "lodash/groupBy";
-
+import { useAsyncState } from "@vueuse/core";
 
 const props = defineProps<{
   productId: {
-    type: String,
-    reqired: true
-  },
-}>()
+    type: String;
+    reqired: true;
+  };
+}>();
 
-const showReviews = ref(true)
-const showReviewForm = ref(false)
+const showReviews = ref(true);
+const showReviewForm = ref(false);
 
+const deskree = useDeskree();
+const loggedIn = computed(() => !!deskree.loggedInUser.value);
 
-const deskree = useDeskree()
-const {state, isLoading, execute} = useAsyncState(() =>
-  deskree.reviews.get(props.productId),
+const { state, isLoading, execute } = useAsyncState(
+  () => deskree.reviews.get(props.productId),
   null,
-  {immediate: false}
-)
+  { immediate: false }
+);
 
-const reviews = computed(() => state.value.data.map(i => i.attributes))
+const reviews = computed(() =>
+  state.value.data.map((review) => ({
+    uid: review.uid,
+    ...review.attributes,
+  }))
+);
 
-const starList = computed(() => {
-  if (state.value) {
-    return state.value.data.map(i => i.attributes.rating)
-  } 
-})
-
-// const groupedReviews = computed(() => {
-//   return groupBy(state.data.value, "rating");
-// });
+const amountOfStars = computed(() => {
+  return reviews.value
+    .map((i) => i.rating)
+    .reduce(
+      (acc, curr) => {
+        acc[curr] = acc[curr] + 1;
+        return acc;
+      },
+      {5: 0, 4: 0, 3: 0, 2: 0, 1: 0}
+    )
+});
 
 const avarageRating = computed(() => {
-  if (state.value) {
-    const count = state.value.data.length
-    const ratingSum = starList.value.reduce((a, b) => a + b, 0)
-    return (ratingSum / count).toFixed(1)
-
+  if (reviews) {
+    const ratingSum = reviews.value
+    .map(i => i.rating).reduce((a, b) => a + b, 0);
+    return (ratingSum / reviews.value.length).toFixed(1);
   } else {
-    return 0
+    return 0;
   }
-})
+});
 
 onMounted(() => {
-  execute()
-  // setTimeout(() => {
-  //   deskree.reviews.submit({
-  //     product_id: props.productId,
-  //     rating: 3,
-  //     text: "This is a second test review",
-  //     title: "Test review number 2"
-  //   })
+  execute();
+});
 
-  // }, 2000);
-})
-
-function submitReview(review: any) {
-  deskree.reviews.submit({
+async function submitReview(review: any) {
+  if (!loggedIn) return;
+  await deskree.reviews.submit({
     product_id: props.productId,
-    rating: review.rating,
-    text: review.text,
-    title: review.title
-  })
-  execute()
+    ...review,
+  });
+  showReviewForm.value = false;
+  execute();
 }
-
-const data = computed(() =>  state.value.data.map(review => review.attributes))
-
 </script>
 
 <template>
-  
   <div class="mb-40">
     <hr class="my-10" />
     <h3 class="font-bold">Customer Reviews and Ratings</h3>
-    
     <p v-if="isLoading || !state" class="text-2xl italic">Loading...</p>
     <template v-else>
-      <pre> {{ reviews }}</pre>
-      <div class="flex gap-4 my-5 ">
-        <!-- <ProductReviewsRating :avarage-rating="avarageRating" :num-of-reviews="state.data.length"/> -->
-        <ProductRating :starList="starList"/>
+      <pre></pre>
+
+      <div class="flex gap-4 my-5">
+        <ProductReviewsRating
+          :avarage-rating="avarageRating"
+          :num-of-reviews="reviews.length"
+        />
+        <ProductRating :reviews-length="reviews.length" :amountOfStars="amountOfStars" />
       </div>
       <div class="flex gap-2 mb-5">
-        <button @click="showReviewForm =! showReviewForm" class="btn btn-xs">Write a Review</button>
-        <button @click="showReviews =! showReviews" class="btn btn-xs">{{ showReviews?'Hide':'Show' }} All Reviews</button>
-
-
+        <NuxtLink
+          v-if="!loggedIn"
+          to="/login"
+        ><button class="underline">Log in To Write a Review</button></NuxtLink>
+        
+        <button v-else @click="showReviewForm = !showReviewForm" class="btn btn-xs">
+          Write a Review
+        </button>
+        <button @click="showReviews = !showReviews" class="btn btn-xs">
+          {{ showReviews ? "Hide" : "Show" }} All Reviews
+        </button>
       </div>
-        <TransitionGroup name="reviews">
-          <ProductReviewCard v-if="showReviews" v-for="review in state.data" :review="review" :key="review.uid" />
-        </TransitionGroup>
-      
-    </template>
+     
+   
     <div v-if="showReviewForm">
-      <h4 class="font-bold ">Create Review</h4>
-      <ProductReviewForm :loading="isLoading" :productId="props.productId" @submitReview="submitReview" />
+      <h4 class="font-bold">Create Review</h4>
+      <ProductReviewForm
+        :loading="isLoading"
+        :productId="props.productId"
+        @submitReview="submitReview"
+      />
     </div>
+    <TransitionGroup name="reviews">
+        <ProductReviewCard
+          v-if="showReviews"
+          v-for="review in reviews"
+          :review="review"
+          :key="review.uid"
+        />
+      </TransitionGroup>
+    </template>
   </div>
 </template>
-
 
 <style scoped>
 .reviews-enter-active,
