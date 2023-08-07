@@ -1,8 +1,8 @@
 <script setup lang="ts">
 
 const props = defineProps<{
-  amountOfStars: Array<number>,
-  reviewsLength: number, 
+  amountOfStars: Object,
+  reviewsLength: Number, 
 }>();
 
 </script>

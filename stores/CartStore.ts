@@ -4,7 +4,9 @@ import { watchDebounced } from "@vueuse/core";
 export const useCartStore = defineStore("CartStore", () => {
     const cart = ref([] as any[]);
     const deskree = useDeskree()
-    const isFirsrLoad = ref(false)
+    const isFirstLoad  = ref(false)
+
+
 
     const addItem = (product : any) => {
         if (!cart.value.includes(product)){
@@ -27,8 +29,12 @@ export const useCartStore = defineStore("CartStore", () => {
             count: product.count
         }
     }))
+    const reset = () => { cart.value = [] }
+
+    
+
     watchDebounced(cart, () => {
-        if (isFirsrLoad.value) return;
+        if (isFirstLoad.value) return;
             deskree.user.updateCart(cart.value)
     }, {
     deep: true,
@@ -37,7 +43,7 @@ export const useCartStore = defineStore("CartStore", () => {
     )
 
     deskree.auth.onAuthStateChange(async (user: any) => {
-        isFirsrLoad.value = true
+        isFirstLoad .value = true
         if (!user) return;
         const res = await deskree.user.getCart();
         res.products.forEach((product: any) => {
@@ -47,7 +53,7 @@ export const useCartStore = defineStore("CartStore", () => {
           }            
         })
         setTimeout(() => {
-            isFirsrLoad.value = false
+            isFirstLoad .value = false
         }, 750);
     })
     return {
@@ -56,7 +62,9 @@ export const useCartStore = defineStore("CartStore", () => {
         removeProducts,
         getTotalPrice,
         getTotalCount,
-        getCartList
+        getCartList,
+        isFirstLoad,
+        reset
     }
 })
 

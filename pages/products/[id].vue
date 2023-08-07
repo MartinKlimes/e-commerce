@@ -49,7 +49,9 @@ function handleAddToCart(product) {
 
           <hr class="my-4" />
 
-          <div class="prose mb-5" v-html="description" />
+          <div class="prose mb-5" v-html="description.replace(/\\n/g, '<br />')" />
+
+         
           <button class="btn btn-primary" @click="handleAddToCart(product)">
             Add to cart
           </button>

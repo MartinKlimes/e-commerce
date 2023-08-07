@@ -2,10 +2,8 @@
 import { useAsyncState } from "@vueuse/core";
 
 const props = defineProps<{
-  productId: {
-    type: String;
-    reqired: true;
-  };
+  productId: string;
+    
 }>();
 
 const showReviews = ref(true);
@@ -42,8 +40,8 @@ const amountOfStars = computed(() => {
 const avarageRating = computed(() => {
   if (reviews) {
     const ratingSum = reviews.value
-    .map(i => i.rating).reduce((a, b) => a + b, 0);
-    return (ratingSum / reviews.value.length).toFixed(1);
+    .map(i => i.rating).reduce((a: number, b: number) => a + b, 0);
+    return parseFloat((ratingSum / reviews.value.length).toFixed(1));
   } else {
     return 0;
   }
