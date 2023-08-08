@@ -40,52 +40,10 @@ https://e-commerce-zeta-lac-73.vercel.app/
 
 
 ## Project Preview
-![App Screenshot](https://github.com/MartinKlimes/Audio-feature-visualization-webapp/assets/107542941/37aa6a7a-e906-4ee6-939e-c57ae69c9aff)
-##
-The application allows users to add new columns and tasks. Users can edit, duplicate, and add labels to these columns and tasks. Additionally, the application has been equipped with a drag-and-drop feature, enabling users to freely rearrange columns and tasks as they desire.
+The application's style was created using TailwindCSS and DaisyUI.
 
-![App Screenshot](https://github.com/MartinKlimes/Audio-feature-visualization-webapp/assets/107542941/58d5948b-5074-4ed0-9452-d6fa2b33619a)
-##
-![App Screenshot](https://github.com/MartinKlimes/Audio-feature-visualization-webapp/assets/107542941/23c123ff-3c04-4193-b28a-daa53e528382)
+![App Screenshot](https://github.com/MartinKlimes/e-commerce/assets/107542941/f301414f-b568-429a-b23d-1d5d70103a43)
 ##
 
 
 
-### Setup
-
-Make sure to install the dependencies:
-
-```bash
-# yarn
-yarn install
-
-# npm
-npm install
-
-# pnpm
-pnpm install --shamefully-hoist
-```
-
-### Development Server
-
-Start the development server on http://localhost:3000
-
-```bash
-npm run dev
-```
-
-### Production
-
-Build the application for production:
-
-```bash
-npm run build
-```
-
-Locally preview production build:
-
-```bash
-npm run preview
-```
-
-Checkout the [deployment documentation](https://v3.nuxtjs.org/guide/deploy/presets) for more information.
