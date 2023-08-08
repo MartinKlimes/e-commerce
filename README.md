@@ -28,8 +28,8 @@ This is a fictional e-commerce application built on the Nuxt.js framework. It us
 - User registration and login: Users can create an account and log in to the application.
 - Content filtering: Users can filter content by price, spiciness, and name.
 - Product reviews: Users can view product reviews and write their own reviews for logged-in users.
-- Cart management: Users can add and remove products from their cart and manage their shipping and billing information.
-- Payments: Users can make payments for their purchases using a credit card, debit card, or PayPal.
+- Cart management: Users can add and remove products from their cart and view their billing information.
+- Payments: Users can make payments for their purchases using a credit card or debit card.
 
 
 
