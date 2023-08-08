@@ -1,28 +1,55 @@
-# Vue.js Forge Episode 2 Codebase
+# Eshop
 
-![Vue.js Forge Episode 2](https://vuejsforge.com/images/logo-vuejs-forge.svg)
 
-This repo includes:
+This is a fictional e-commerce application built on the Nuxt.js framework. It uses the headless CMS Contentful for content management, the payment platform Stripe for accepting payments, and the user management tool Deskree for managing user accounts. It is an application developed during the Vue.js Forge event.
 
-- The boilerplate code for the event (branch: main)
-- Branches for both the starting point and the ending point for all exercises
+## Tech Stack
 
-## Services
+<div align="left">
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg" height="40" alt="vuejs logo"  />
+   <img width="12" />
+    <img src="https://nuxt.com/assets/design-kit/logo/icon-green.svg" height="40" alt="nuxt logo"  />
+  <img width="12" />
+  <img src="https://upload.wikimedia.org/wikipedia/commons/1/1c/Pinialogo.svg" height="40" alt="vscode logo"  />
+  <img width="12" />
+  <img src="https://upload.wikimedia.org/wikipedia/commons/4/4c/Typescript_logo_2020.svg" height="40" alt="typescript logo"  />
+  <img width="12" />
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" height="40" alt="html5 logo"  />
+  <img width="12" />
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" height="40" alt="css3 logo"  />
+  <img width="12" />
+  <img src="https://upload.wikimedia.org/wikipedia/commons/d/d5/Tailwind_CSS_Logo.svg" height="40" alt="tailwindcss logo"  />
+   <img width="12" />
+  <img src="https://upload.wikimedia.org/wikipedia/commons/f/f1/Vitejs-logo.svg" height="40" alt="vscode logo"  />
+</div>
 
-During the event we'll use several 3rd party SaaS platforms to provide app funcationality like data storage, payment processing, etc. Those services include:
+###
+## Features
+- User registration and login: Users can create an account and log in to the application.
+- Content filtering: Users can filter content by price, spiciness, and name.
+- Product reviews: Users can view product reviews and write their own reviews for logged-in users.
+- Cart management: Users can add and remove products from their cart and manage their shipping and billing information.
+- Payments: Users can make payments for their purchases using a credit card, debit card, or PayPal.
 
-- Deskree
-- Contentful CMS
-- Stripe
-- and Big Commerce
 
-Please be sure to follow the steps in the event preparation doc to make sure these services are setup correctly.
 
-Also be sure to fill out the .env file with the proper data to connect to these services.
+###
 
-## Uses Nuxt 3
+## Demo
+https://e-commerce-zeta-lac-73.vercel.app/
 
-Look at the [nuxt 3 documentation](https://v3.nuxtjs.org) to learn more.
+
+## Project Preview
+![App Screenshot](https://github.com/MartinKlimes/Audio-feature-visualization-webapp/assets/107542941/37aa6a7a-e906-4ee6-939e-c57ae69c9aff)
+##
+The application allows users to add new columns and tasks. Users can edit, duplicate, and add labels to these columns and tasks. Additionally, the application has been equipped with a drag-and-drop feature, enabling users to freely rearrange columns and tasks as they desire.
+
+![App Screenshot](https://github.com/MartinKlimes/Audio-feature-visualization-webapp/assets/107542941/58d5948b-5074-4ed0-9452-d6fa2b33619a)
+##
+![App Screenshot](https://github.com/MartinKlimes/Audio-feature-visualization-webapp/assets/107542941/23c123ff-3c04-4193-b28a-daa53e528382)
+##
+
+
 
 ### Setup
 
