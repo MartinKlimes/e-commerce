@@ -21,11 +21,14 @@ defineProps<{
         />
       </figure>
       <div class="card-body">
-        <h2 class="justify-between flex">
+        <h2 class="justify-between flex ">
           <span class="w-3/5"> {{ product.fields.name }} </span>
-          <small class="w-2/5 p-1 badge badge-outline">
-            <ProductPrice :price="product.fields.price" />
-          </small>
+          <div class="w-2/5 p-1 flex flex-col">
+            <small class="w-full badge badge-outline ">
+              <ProductPrice :price="product.fields.price" />
+            </small>
+            <ProductReviewRatingStars :avarageRating="2" />
+          </div>
         </h2>
         <p
           class="text-sm max-h-5 overflow-ellipsis overflow-hidden whitespace-nowrap"
