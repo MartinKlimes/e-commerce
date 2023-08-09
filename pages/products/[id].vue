@@ -56,7 +56,7 @@ function handleAddToCart(product) {
             Add to cart
           </button>
 
-          <ProductReviews :productId="product.sys.id" />
+          <ProductReview :productId="product.sys.id" />
         </div>
       </div>
     </div>

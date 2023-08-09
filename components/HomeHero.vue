@@ -13,7 +13,7 @@
           your hot sauce!
         </h1>
         <p class="py-6">
-          Vue.js Forge is hot... and we've got the sauce to prove it!
+          So come on in and check out our selection of hot sauces today!
         </p>
         <button class="btn btn-primary">Get Started</button>
       </div>

@@ -15,7 +15,7 @@ const loggedIn = computed(() => !!deskree.loggedInUser.value);
 const { state, isLoading, execute } = useAsyncState(
   () => deskree.reviews.get(props.productId),
   null,
-  { immediate: false }
+
 );
 
 const reviews = computed(() =>
@@ -47,9 +47,6 @@ const avarageRating = computed(() => {
   }
 });
 
-onMounted(() => {
-  execute();
-});
 
 async function submitReview(review: any) {
   if (!loggedIn) return;
@@ -69,13 +66,18 @@ async function submitReview(review: any) {
     <p v-if="isLoading || !state" class="text-2xl italic">Loading...</p>
     <div v-else-if="!reviews.length" class="flex flex-col ">
       <span class="text-gray-500">No Reviews Yet</span>
-      <button @click="showReviewForm =! showReviewForm" class="btn w-max mt-4">Be the first to write one!</button>
+      <button v-if="loggedIn" @click="showReviewForm =! showReviewForm" class="btn w-max mt-4">Be the first to write one!</button>
+      <NuxtLink
+          v-if="!loggedIn"
+          to="/login"
+        ><button class="underline">Log in To Write a Review</button></NuxtLink>
+        
     </div>
     <template v-else>
       <pre></pre>
 
       <div class="flex gap-4 my-5">
-        <ProductReviewsRating
+        <ProductReviewRating
           :avarage-rating="avarageRating"
           :num-of-reviews="reviews.length"
         />

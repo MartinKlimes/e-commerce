@@ -11,6 +11,9 @@ const form = reactive({
   rating: 5,
 });
 
+function updateRating(e) {
+  form.rating = e
+}
 </script>
 <template>
   <div>
@@ -21,12 +24,10 @@ const form = reactive({
       :actions="false"
       v-model="form"
     >
-      <FormKit
-        type="number"
-        label="Rating"
-        name="rating"
-        validation="required"
-      />
+   
+      <ProductReviewFormRating id="rating" @update-rating="updateRating"/>
+    
+
       <FormKit type="text" label="Title" name="title" validation="required" />
 
       <FormKit
@@ -35,9 +36,12 @@ const form = reactive({
         label="Review"
         validation="required"
       />
+      
       <AppButton class="btn-primary" :loading="loading"
         >Submit Review</AppButton
       >
     </FormKit>
+
+  
   </div>
 </template>

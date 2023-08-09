@@ -152,6 +152,9 @@ export function useDeskree() {
         product_id,
       });
     },
+    delete(reviewId) {
+      return dbRestRequest(`/reviews/${reviewId}`, "DELETE");
+    },
   };
 
   // private composable functions
