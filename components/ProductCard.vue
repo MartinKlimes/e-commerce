@@ -27,7 +27,7 @@ defineProps<{
             <small class="w-full badge badge-outline ">
               <ProductPrice :price="product.fields.price" />
             </small>
-            <ProductReviewRatingStars :avarageRating="2" />
+            <!-- <ProductReviewRatingStars :avarageRating="2" /> -->
           </div>
         </h2>
         <p

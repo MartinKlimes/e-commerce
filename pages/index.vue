@@ -22,6 +22,7 @@ useAsyncData("products", async () => productStore.fetchProducts());
         class="mb-5"
       />
     </TransitionGroup>
+    <!-- <TestComponent /> -->
     </div>
   </div>
 </template>
