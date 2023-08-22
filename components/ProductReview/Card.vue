@@ -22,7 +22,7 @@ function deleteReview() {
     <p>{{ review.text }}</p>
     <div class="text-sm opacity-80">{{ timeAgo }}</div>
     <!-- <pre>{{ review }}</pre> -->
-    <button @click="deleteReview" class="btn btn-outline btn-error btn-xs">X</button>
+    <!-- <button @click="deleteReview" class="btn btn-outline btn-error btn-xs">X</button> -->
     
 </div>
 </template>
